@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon index.js --watch .",
     "start": "node index.js",
-    "lint": "eslint --ext \".js\" ."
+    "lint": "eslint --ext \".js,.cjs\" ."
   },
   "dependencies": {
     "@fastify/cors": "^8.4.0",
@@ -14,6 +14,7 @@
     "fastify": "^4.24.3",
     "mongoose": "^7.6.3",
     "mongoose-bcrypt": "^1.11.0",
+    "nanoid": "^5.0.2",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0"
