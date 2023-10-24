@@ -4,6 +4,8 @@ import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
 import { connect } from 'mongoose';
 
+import user from './user/index.js';
+
 const fastify = Fastify({
   logger: true,
 });
@@ -20,6 +22,8 @@ fastify.addHook('onRequest', async (req, res) => {
     res.status(500).send(error);
   }
 });
+
+fastify.register(user, { prefix: '/api/user' });
 
 const connector = async () => {
   try {
