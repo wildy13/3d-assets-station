@@ -17,7 +17,8 @@
     "nanoid": "^5.0.2",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "slug": "^8.2.3"
   },
   "devDependencies": {
     "eslint": "^7.32.0 || ^8.2.0",

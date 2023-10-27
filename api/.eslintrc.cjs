@@ -23,5 +23,6 @@ module.exports = {
   },
   rules: {
     'no-underscore-dangle': 0,
+    'import/extensions': 0,
   },
 };
