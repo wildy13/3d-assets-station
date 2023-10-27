@@ -8,6 +8,7 @@ import User from './user/model.js';
 import setup from './auth/passport.js';
 
 import auth from './auth/index.js';
+import category from './category/index.js';
 import user from './user/index.js';
 
 const fastify = Fastify({
@@ -30,6 +31,7 @@ fastify.addHook('onRequest', async (req, res) => {
 });
 
 fastify.register(auth, { prefix: '/api/auth' });
+fastify.register(category, { prefix: '/api/category' });
 fastify.register(user, { prefix: '/api/user' });
 
 const connector = async () => {
