@@ -10,6 +10,16 @@ export const getAll = async (req, res) => {
   }
 };
 
+export const getMe = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.user.email });
+
+    res.status(200).send({ user: user.profile });
+  } catch (err) {
+    res.status(500).send(err);
+  }
+};
+
 export const create = async (req, res) => {
   try {
     const newUser = new User(req.body);
