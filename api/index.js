@@ -1,9 +1,14 @@
 import 'dotenv/config';
 import Fastify from 'fastify';
-import cors from '@fastify/cors';
-import jwt from '@fastify/jwt';
-import multipart from '@fastify/multipart';
+import fastifyCors from '@fastify/cors';
+import fastifyJwt from '@fastify/jwt';
+import fastifyMultipart from '@fastify/multipart';
+import fastifyStatic from '@fastify/static';
+
 import { connect } from 'mongoose';
+
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import User from './user/model.js';
 import setup from './auth/passport.js';
@@ -17,11 +22,18 @@ const fastify = Fastify({
   logger: true,
 });
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 setup(User);
 
-fastify.register(cors);
-fastify.register(jwt, { secret: process.env.SESSION_KEY, sign: { expiresIn: '8h' } });
-fastify.register(multipart);
+fastify.register(fastifyCors);
+fastify.register(fastifyJwt, { secret: process.env.SESSION_KEY, sign: { expiresIn: '8h' } });
+fastify.register(fastifyMultipart);
+fastify.register(fastifyStatic, {
+  root: path.join(__dirname, 'public'),
+  prefix: '/public/', 
+});
 
 fastify.addHook('onRequest', async (req, res) => {
   try {
