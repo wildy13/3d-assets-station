@@ -4,7 +4,7 @@ import { isAdmin } from '../auth/service.js';
 
 export default ((fastify, opts, done) => {
   fastify.get('/', { preHandler: [isAdmin()] }, getAll);
-  fastify.post('/create', { preHandler: [isAdmin()] }, create);
+  fastify.post('/', { preHandler: [isAdmin()] }, create);
 
   done();
 });
