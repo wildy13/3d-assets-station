@@ -2,11 +2,13 @@ import 'dotenv/config';
 import Fastify from 'fastify';
 import cors from '@fastify/cors';
 import jwt from '@fastify/jwt';
+import multipart from '@fastify/multipart';
 import { connect } from 'mongoose';
 
 import User from './user/model.js';
 import setup from './auth/passport.js';
 
+import asset from './asset/index.js';
 import auth from './auth/index.js';
 import category from './category/index.js';
 import user from './user/index.js';
@@ -19,6 +21,7 @@ setup(User);
 
 fastify.register(cors);
 fastify.register(jwt, { secret: process.env.SESSION_KEY, sign: { expiresIn: '8h' } });
+fastify.register(multipart);
 
 fastify.addHook('onRequest', async (req, res) => {
   try {
@@ -30,6 +33,7 @@ fastify.addHook('onRequest', async (req, res) => {
   }
 });
 
+fastify.register(asset, { prefix: '/api/asset' });
 fastify.register(auth, { prefix: '/api/auth' });
 fastify.register(category, { prefix: '/api/category' });
 fastify.register(user, { prefix: '/api/user' });
