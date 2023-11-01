@@ -10,12 +10,12 @@ const pump = util.promisify(pipeline);
 
 export const create = async (req, res) => {
   try {
-    const parts = req.parts({ limits: { fileSize: 50000000 } })
+    const parts = req.parts({ limits: { fileSize: 50000000 } });
     for await (const part of parts) {
       if (part.type === 'file') {
-        await pump(part.file, fs.createWriteStream(`public/${part.filename}`))
+        await pump(part.file, fs.createWriteStream(`public/${part.filename}`));
       } else {
-        console.log(part)
+        console.log(part);
       }
     }
 

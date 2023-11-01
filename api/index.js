@@ -32,7 +32,7 @@ fastify.register(fastifyJwt, { secret: process.env.SESSION_KEY, sign: { expiresI
 fastify.register(fastifyMultipart);
 fastify.register(fastifyStatic, {
   root: path.join(__dirname, 'public'),
-  prefix: '/public/', 
+  prefix: '/public/',
 });
 
 fastify.addHook('onRequest', async (req, res) => {

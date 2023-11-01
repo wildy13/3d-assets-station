@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "nodemon index.js --watch .",
     "start": "node index.js",
-    "lint": "eslint --ext \".js,.cjs\" ."
+    "lint": "eslint --ext \".js,.cjs\" .",
+    "lintfix": "eslint --ext \".js,.cjs\" . --fix"
   },
   "dependencies": {
     "@fastify/cors": "^8.4.0",

@@ -26,5 +26,8 @@ module.exports = {
     'import/extensions': 0,
     'linebreak-style': 0,
     'object-curly-newline': 0,
+    'array-callback-return': 0,
+    'no-unused-vars': 0,
+    'no-restricted-syntax': 0,
   },
 };
