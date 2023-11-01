@@ -1,73 +1,64 @@
-<template>
-    <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-      <el-radio-button :label="false">expand</el-radio-button>
-      <el-radio-button :label="true">collapse</el-radio-button>
-    </el-radio-group>
-    <el-menu
-      default-active="2"
-      class="el-menu-vertical-demo"
-      :collapse="isCollapse"
-      @open="handleOpen"
-      @close="handleClose"
-    >
-      <el-sub-menu index="1">
-        <template #title>
-          <el-icon><location /></el-icon>
-          <span>Navigator One</span>
-        </template>
-        <el-menu-item-group>
-          <template #title><span>Group One</span></template>
-          <el-menu-item index="1-1">item one</el-menu-item>
-          <el-menu-item index="1-2">item two</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="Group Two">
-          <el-menu-item index="1-3">item three</el-menu-item>
-        </el-menu-item-group>
-        <el-sub-menu index="1-4">
-          <template #title><span>item four</span></template>
-          <el-menu-item index="1-4-1">item one</el-menu-item>
-        </el-sub-menu>
-      </el-sub-menu>
-      <el-menu-item index="2">
-        <el-icon><icon-menu /></el-icon>
-        <template #title>Navigator Two</template>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <el-icon><document /></el-icon>
-        <template #title>Navigator Three</template>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <el-icon><setting /></el-icon>
-        <template #title>Navigator Four</template>
-      </el-menu-item>
-    </el-menu>
-  </template>
-  
-  <script setup>
-  import { ref } from 'vue'
-  import {
-    Document,
-    Menu as IconMenu,
-    Location,
-    Setting,
-  } from '@element-plus/icons-vue'
-  
-  const isCollapse = ref(true)
-  
-  const handleOpen = function (key, keyPath) {
-    console.log(key, keyPath)
+<script setup>
+const { signOut } = useAuth();
+const isOpen= ref(false);
+
+const { metaSymbol } = useShortcuts()
+const logout = async () => {
+  await signOut({ callbackUrl: '/login' });
+};
+
+defineShortcuts({
+  ctrl_k: {
+    usingInput: true,
+    handler: () => {
+      isOpen.value = !isOpen.value
+    }
+  },
+
+  escape: {
+    usingInput: true,
+    whenever: [isOpen],
+    handler: () => { isOpen.value = false }
   }
-  
-  const handleClose = function (key, keyPath) {
-    console.log(key, keyPath)
-  }
+})
 </script>
 
-  
-  <style>
-  .el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 200px;
-    min-height: 400px;
-  }
-  </style>
-  
+<template>
+  <div class="min-h-screen flex flex-col px-4 py-5 sm:p-6 w-56 max-w-lg">
+    <div class="py-5 mb-10">
+      <img src="/favicon.ico" alt="Logo">
+    </div>
+    <div class="flex flex-col justify-between h-full">
+      <div class="flex flex-col gap-4">
+
+        <UButton icon="i-heroicons-magnifying-glass" variant="ghost" color="gray" @click="isOpen = true">
+          <div class="flex gap-1">
+            <span>Search</span>
+            <div class="flex items-center gap-0.5">
+              <UKbd>{{ metaSymbol }}</UKbd>
+              <UKbd>K</UKbd>
+            </div>
+          </div>
+        </UButton>
+
+        <UButton icon="i-heroicons-home" variant="ghost" label="Dashboard" to="/" color="gray"
+          class="active:text-blue-400 focus:text-blue-400" />
+
+        <UButton icon="i-heroicons-folder-plus" variant="ghost" label="Category" to="/category" color="gray"
+          class="active:text-blue-400 focus:text-blue-400" />
+
+        <UButton icon="i-heroicons-folder-plus" variant="ghost" label="Asset" to="/asset" color="gray"
+          class="active:text-blue-400 focus:text-blue-400" />
+      </div>
+
+      <div>
+        <UButton icon="i-heroicons-arrow-right-on-rectangle" color="gray" variant="ghost" label="Log out"
+          @click="logout" />
+      </div>
+    </div>
+    <Search
+      :show="isOpen"
+      @close="isOpen = false"
+    />
+  </div>
+</template>

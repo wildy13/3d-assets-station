@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev --port 4000",
+    "dev": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -19,7 +19,7 @@
     "eslint-plugin-airbnb-base": "^0.0.1-security",
     "eslint-plugin-import": "^2.28.1",
     "nuxt": "^3.8.0",
-    "vue": "^3.3.6",
+    "vue": "^3.3.4",
     "vue-router": "^4.2.5"
   },
   "dependencies": {
