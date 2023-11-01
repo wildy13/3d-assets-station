@@ -99,6 +99,14 @@ const submit = async () => {
         >
           Sign In
         </UButton>
+        <div class="w-full">
+          <div class="flex  justify-end items-center">
+            <UIcon name="i-heroicons-chevron-left" />
+            <span class="text-sm">
+              <NuxtLink to="/">Back</NuxtLink>
+            </span>
+          </div>
+        </div>
       </UForm>
     </div>
   </div>

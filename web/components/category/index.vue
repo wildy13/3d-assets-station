@@ -115,10 +115,6 @@ const filteredRows = computed(() => {
               </template>
               <template #name-data="{ row }">
                 <span
-                  :class="[
-                    selected.find((person) => person.id === row.id) &&
-                      'text-blue-400 dark:text-primary-300',
-                  ]"
                   >{{ row.name }}</span
                 >
               </template>

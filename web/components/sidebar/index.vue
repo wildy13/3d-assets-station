@@ -1,6 +1,6 @@
 <script setup>
-const { signOut } = useAuth();
-const isOpen= ref(false);
+const { signOut, token } = useAuth();
+const isOpen = ref(false);
 
 const { metaSymbol } = useShortcuts()
 const logout = async () => {
@@ -41,24 +41,25 @@ defineShortcuts({
           </div>
         </UButton>
 
-        <UButton icon="i-heroicons-home" variant="ghost" label="Dashboard" to="/" color="gray"
+        <UButton v-if="token" icon="i-heroicons-home" variant="ghost" label="Dashboard" to="/" color="gray"
           class="active:text-blue-400 focus:text-blue-400" />
 
-        <UButton icon="i-heroicons-folder-plus" variant="ghost" label="Category" to="/category" color="gray"
+        <UButton v-if="token" icon="i-heroicons-folder-plus" variant="ghost" label="Category" to="/category" color="gray"
           class="active:text-blue-400 focus:text-blue-400" />
 
-        <UButton icon="i-heroicons-folder-plus" variant="ghost" label="Asset" to="/asset" color="gray"
+        <UButton v-if="token" icon="i-heroicons-folder-plus" variant="ghost" label="Asset" to="/asset" color="gray"
           class="active:text-blue-400 focus:text-blue-400" />
       </div>
 
       <div>
-        <UButton icon="i-heroicons-arrow-right-on-rectangle" color="gray" variant="ghost" label="Log out"
+        <UButton v-if="token" icon="i-heroicons-arrow-right-on-rectangle" color="gray" variant="ghost" label="Log out"
           @click="logout" />
+
+        <UButton v-if="!token" icon="i-heroicons-arrow-left-on-rectangle" color="gray" variant="ghost" label="Login"
+          to="/login" />
       </div>
+
     </div>
-    <Search
-      :show="isOpen"
-      @close="isOpen = false"
-    />
+    <Search :show="isOpen" @close="isOpen = false" />
   </div>
 </template>

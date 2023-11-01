@@ -56,8 +56,8 @@ export const useCategoryStore = defineStore('category', () => {
   }
 
   async function remove(body) {
-    console.log(body)
-    const res = await alovaInstance.Delete(`/api/category/${id}`, body , { headers }).send();
+    console.log(body[0])
+    const res = await alovaInstance.Delete(`/api/category/delete`, body , { headers }).send();
     const index = this.items.findIndex((v) => v._id === res.id);
     this.items.splice(index, 1);
 
